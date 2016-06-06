@@ -27,6 +27,7 @@ class Admin_model extends CI_Model{
   }
 
   public function get_info_student() {
+
     $query = $this->db->query("SELECT * FROM tb_student");
 
     echo "
@@ -49,7 +50,17 @@ class Admin_model extends CI_Model{
             <td><img style='width:100px; height:100px;' src='".base_url()."assets/images/student/".$row->image."'</td>
             <td style='padding-top:50px;'>".$row->id_student."</td>
             <td style='padding-top:50px;'>".$row->prefix." ".$row->firstname." ".$row->lastname."</td>
-            <td style='padding-top:50px;'>".$row->total_course."</td>
+
+            ";
+
+            // read regis class count
+            $query_read = $this->db->query("SELECT count FROM tb_regis_count WHERE id_student='$row->id_student'");
+            foreach ($query_read->result() as $row_read) {
+              echo "<td style='padding-top:50px;'>".$row_read->count."</td>";
+            }
+            // end read
+
+      echo "
             <td style='padding-top:35px;'>
 
                 <a href='".base_url()."main/info_learn_search?text_search=".$row->id_student."'><img src='".base_url()."assets/images/icon/info.png' alt='ข้อมูลการเรียน' style='cursor: pointer; width: 50px; height: 50px;' /></a>
@@ -452,26 +463,16 @@ class Admin_model extends CI_Model{
 
      foreach ($query->result() as $row) {
 
-      //  $day_len = strlen($row->day_class);
-       //
-      //  for ($i = 0; $i < $day_len; $i++) {
-      //    if ($row->day_class[$i] == "a") { $day += "จันทร์ "; }
-      //    if ($row->day_class[$i] == "b") { $day += "อังคาร "; }
-      //    if ($row->day_class[$i] == "c") { $day += "พุธ "; }
-      //    if ($row->day_class[$i] == "d") { $day += "พฤหัสบดี "; }
-      //    if ($row->day_class[$i] == "e") { $day += "ศุกร์ "; }
-      //    if ($row->day_class[$i] == "f") { $day += "เสาร์ "; }
-      //    if ($row->day_class[$i] == "g") { $day += "อาทิตย์ "; }
-      //  }
-
        echo "
             <tr>
               <td>รหัสวิชา</td>
               <td style='text-align: left;'><span name='code_class'>".$row->code_class."</span></td>
+              <input type='hidden' name='code_class' value='".$row->code_class."'>
             </tr>
             <tr>
               <td>ชื่อวิชา</td>
               <td style='text-align: left;'><span name='title_class'>".$row->title_class."</span></td>
+              <input type='hidden' name='title_class' value='".$row->title_class."'>
             </tr>
             <tr>
               <td>รายละเอียด</td>
@@ -503,10 +504,12 @@ class Admin_model extends CI_Model{
             <tr>
               <td>จำนวนชั่วโมงเรียน</td>
               <td style='text-align: left;'><span>".$row->hour_class."</span></td>
+              <input type='hidden' name='hour_class' value='".$row->hour_class."'>
             </tr>
             <tr>
               <td>ค่าลงทะเบียนเรียน</td>
               <td style='text-align: left;'><span name='price_class'>".$row->price_class."</span></td>
+              <input type='hidden' name='price_class' value='".$row->price_class."'>
             </tr>
             <tr>
               <td></td>

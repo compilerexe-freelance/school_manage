@@ -284,6 +284,10 @@ class Main extends CI_Controller {
 									$safe_district,$safe_province,$safe_tel,$safe_nameparent,$safe_telparent,'$img_name'
 								);";
 				        $this->db->query($sql);
+
+								$sql = "INSERT INTO tb_regis_count (id_student,count) VALUES ('$id_student',0)";
+								$this->db->query($sql);
+
 								$state = 1;
 							}
 						}
@@ -326,7 +330,7 @@ class Main extends CI_Controller {
 
 	public function db_regis_detail() {
 		$id = $this->session->state_id;
-		$prefix = ""; $firstname = ""; $lastname = "";
+		$prefix = ""; $firstname = ""; $lastname = ""; $id_student = ""; $count_class = 0;
 		$sql = "SELECT prefix,firstname,lastname FROM tb_student WHERE id=$id";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row) {
@@ -338,17 +342,37 @@ class Main extends CI_Controller {
 		// get form
 		$code_class = $this->input->post('code_class');
 		$title_class = $this->input->post('title_class');
+		$hour_class = $this->input->post('hour_class');
 		$price_class = $this->input->post('price_class');
 
 		// echo $code_class.$title_class.$price_class;
 
+		$save_by = $this->session->state_login;
+
 		$sql = "INSERT INTO tb_regis_class (
-			prefix,firstname,lastname,code_class,title_class,price_class
+			prefix,firstname,lastname,code_class,title_class,price_class,hour_class,
+			hour_total,payment,last_update,save_by
 		) VALUES (
-			'$prefix','$firstname','$lastname','$code_class','$title_class','$price_class'
+			'$prefix','$firstname','$lastname','$code_class','$title_class','$price_class',
+			$hour_class,0,0,NOW(),'$save_by'
 		)";
 
 		$this->db->query($sql);
+
+		// update counting class
+		$sql = "SELECT id_student FROM tb_student WHERE firstname='$firstname' AND lastname='$lastname'";
+		$query = $this->db->query($sql);
+		foreach ($query->result() as $row) {
+			$id_student = $row->id_student;
+		}
+
+		$query = $this->db->query("SELECT count FROM tb_regis_count WHERE id_student='$id_student'");
+		foreach ($query->result() as $row) {
+			$count_class = $row->count;
+		}
+
+		$count_class++;
+		$this->db->query("UPDATE tb_regis_count SET count='$count_class' WHERE id_student='$id_student'");
 
 		echo "
 			<script type='text/javascript'>
@@ -442,6 +466,71 @@ class Main extends CI_Controller {
 		// echo $id;
 		$this->db->query("DELETE FROM tb_student WHERE id='$id'");
 		header('location: '.base_url().'main/info_student');
+	}
+
+	public function learn_detail() {
+		$this->load->view('learn_detail');
+	}
+
+	public function db_history_class() {
+		$title_class = $this->input->get('title_class');
+		$id_student = $this->input->get('id_student');
+		$select_hour = $this->input->get('select_hour');
+		$firstname = ""; $lastname = ""; $hour_total = 0;
+
+		$this->db->query("INSERT INTO tb_history_class (id_student,title_class,hour_used,last_update) VALUES ('$id_student','$title_class',$select_hour,NOW())");
+
+		$query = $this->db->query("SELECT hour_total FROM tb_regis_class");
+		foreach ($query->result() as $row) {
+ 			$hour_total = $row->hour_total;
+		}
+		$hour_total = $hour_total + $select_hour;
+
+		// read firstname lastname
+		$query = $this->db->query("SELECT firstname,lastname FROM tb_student WHERE id_student='$id_student'");
+		foreach ($query->result() as $row) {
+			$firstname = $row->firstname;
+			$lastname = $row->lastname;
+		}
+		// end read
+
+		$this->db->query("UPDATE tb_regis_class SET hour_total=$hour_total, last_update=NOW() WHERE lastname='$lastname' AND title_class='$title_class'");
+		header('location: '.base_url().'main/learn_detail?title_class='.$title_class.'&id_student='.$id_student);
+	}
+
+	public function student_payment() {
+		$this->load->view('student_payment');
+	}
+
+	public function payment_success() {
+		$this->load->view('payment_success');
+	}
+
+	public function payment_remain() {
+		$this->load->view('payment_remain');
+	}
+
+	public function confirm_payment() {
+		$this->load->view('confirm_payment');
+	}
+
+	public function db_confirm_payment() {
+		$prefix 			= $this->input->post('prefix');
+		$firstname 		= $this->input->post('firstname');
+		$lastname 		= $this->input->post('lastname');
+		$code_class 	= $this->input->post('code_class');
+		$title_class 	= $this->input->post('title_class');
+		$price_class 	= $this->input->post('price_class');
+		$confirm_by 	= $this->input->post('confirm_by');
+
+		$this->db->query("INSERT INTO tb_history_payment (
+			prefix,firstname,lastname,code_class,title_class,price_class,last_update,confirm_by
+		) VALUES ('$prefix','$firstname','$lastname','$code_class','$title_class',$price_class,NOW(),'$confirm_by')");
+
+		$this->db->query("UPDATE tb_regis_class SET payment=1 WHERE lastname='$lastname' AND code_class='$code_class'");
+
+		header('location: '.base_url().'main/payment_success');
+
 	}
 
 } // end controller

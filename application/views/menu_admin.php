@@ -36,7 +36,17 @@
         }
       ?>
     >วิชาที่เปิดสอน</a>
-    <a href="#" class="list-group-item">การจ่ายเงิน</a>
+
+    <a href="<?php echo base_url(); ?>main/student_payment"
+      <?php
+        if ($this->session->select_menu == "student_payment") {
+          echo "class='list-group-item active'";
+        } else {
+          echo "class='list-group-item'";
+        }
+      ?>
+    >การจ่ายเงิน</a>
+
     <a href="#" class="list-group-item">รายงาน</a>
     <a href="#" class="list-group-item">ตั้งค่า</a>
     <a href="<?php echo base_url(); ?>main/logout" class="list-group-item">ออกจากระบบ</a>
