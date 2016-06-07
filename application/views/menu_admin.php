@@ -47,7 +47,16 @@
       ?>
     >การจ่ายเงิน</a>
 
-    <a href="#" class="list-group-item">รายงาน</a>
+    <a href="<?php echo base_url(); ?>main/report"
+      <?php
+        if ($this->session->select_menu == "report") {
+          echo "class='list-group-item active'";
+        } else {
+          echo "class='list-group-item'";
+        }
+      ?>
+    >รายงาน</a>
+
     <a href="#" class="list-group-item">ตั้งค่า</a>
     <a href="<?php echo base_url(); ?>main/logout" class="list-group-item">ออกจากระบบ</a>
   </div>

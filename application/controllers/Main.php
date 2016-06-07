@@ -25,6 +25,15 @@ class Main extends CI_Controller {
 
 		if ($state == 1) {
 			$this->session->state_login = "admin";
+
+			// update log
+			$ip = $this->input->ip_address();
+			$sql = "INSERT INTO tb_log (
+				username,ip_address,detail,last_update,last_login
+			) VALUES ('$get_user','$ip','เข้าสู่ระบบ',NOW(),NOW())
+			";
+			$query = $this->db->query($sql);
+
 			header('location: '.base_url().'main/home');
 		} else {
 			header('location: '.base_url());
@@ -33,6 +42,15 @@ class Main extends CI_Controller {
 	}
 
 	public function logout() {
+		$get_user = $this->session->state_login;
+		// update log
+		$ip = $this->input->ip_address();
+		$sql = "INSERT INTO tb_log (
+			username,ip_address,detail,last_update,last_login
+		) VALUES ('$get_user','$ip','ออกจากระบบ',NOW(),NOW())
+		";
+		$query = $this->db->query($sql);
+
 		$this->session->state_login = "";
 		header('location: '.base_url());
 	}
@@ -445,6 +463,43 @@ class Main extends CI_Controller {
 
 	}
 
+	// user_detail
+	public function db_save_user() {
+		$username 		= $this->input->post('username');
+		$firstname 		= $this->input->post('firstname');
+		$lastname 		= $this->input->post('lastname');
+		$email 				= $this->input->post('email');
+		$tel 					= $this->input->post('tel');
+
+		$safe_firstname = $this->db->escape($firstname);
+		$safe_lastname = $this->db->escape($lastname);
+		$safe_email = $this->db->escape($email);
+		$safe_tel = $this->db->escape($tel);
+
+		if ($_FILES["image_student"]["name"] != "") {
+			$url = $this->upload_student_detail("image_student","student");
+			$img_name = $_FILES["image_student"]["name"];
+
+			$sql = "UPDATE tb_user SET
+				firstname=$safe_firstname, lastname=$safe_lastname,
+				email=$safe_email, tel=$safe_tel, image='$img_name' WHERE username='$username'
+			";
+		} else {
+			$url = $this->upload_student_detail("image_student","student");
+			$img_name = $_FILES["image_student"]["name"];
+
+			$sql = "UPDATE tb_user SET
+				firstname=$safe_firstname, lastname=$safe_lastname,
+				email=$safe_email, tel=$safe_tel WHERE username='$username'
+			";
+		}
+
+		$this->db->query($sql);
+
+		header('location: '.base_url().'main/user_detail?user='.$username);
+
+	}
+
 	// ===== upload db_student_detail =====
 
   private function upload_student_detail($genName,$getDir) {
@@ -531,6 +586,78 @@ class Main extends CI_Controller {
 
 		header('location: '.base_url().'main/payment_success');
 
+	}
+
+	public function report() {
+		$this->load->view('report');
+	}
+
+	public function student_all() {
+		$this->load->view('student_all');
+	}
+
+	public function users() {
+		$this->load->view('users');
+	}
+
+	public function user_detail() {
+		$this->load->view('user_detail');
+	}
+
+	public function db_change_pwd() {
+		$user 				= $this->input->post('user');
+		$old_pwd 			= $this->input->post('old_pwd');
+		$new_pwd 			= $this->input->post('new_pwd');
+		$confirm_pwd 	= $this->input->post('confirm_pwd');
+
+		if ($new_pwd != $confirm_pwd) {
+			echo "
+			<script type='text/javascript'>
+				alert('ยืนยันรหัสผ่านใหม่อีกครั้ง');
+				setInterval(function() {
+					window.location.href = '".base_url()."main/user_detail?user=".$user."';
+				}, 1000);
+			</script>
+			";
+			exit(0);
+		}
+
+		$query = $this->db->query("SELECT password FROM tb_user WHERE username='$user'");
+		foreach ($query->result() as $row) {
+			if ($old_pwd == $row->password) {
+				$query = $this->db->query("UPDATE tb_user SET password='$confirm_pwd' WHERE username='$user'");
+				echo "
+				<script type='text/javascript'>
+					alert('เปลี่ยนรหัสผ่านสำเร็จ');
+					setInterval(function() {
+						window.location.href = '".base_url()."main/user_detail?user=".$user."';
+					}, 1000);
+				</script>
+				";
+				exit(0);
+			} else {
+				echo "
+				<script type='text/javascript'>
+					alert('รหัสผ่านผู้ใช้งานไม่ถูกต้อง');
+					setInterval(function() {
+						window.location.href = '".base_url()."main/user_detail?user=".$user."';
+					}, 1000);
+				</script>
+				";
+				exit(0);
+			}
+		}
+
+	}
+
+	public function login_log() {
+		$this->load->view('login_log');
+	}
+
+	public function delete_log() {
+		$id = $this->input->get('id');
+		$this->db->query("DELETE FROM tb_log WHERE id=$id");
+		header('location: '.base_url().'main/login_log');
 	}
 
 } // end controller

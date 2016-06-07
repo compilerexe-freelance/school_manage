@@ -37,7 +37,7 @@ class Admin_model extends CI_Model{
           <th style='text-align:center;'>ลำดับ</th>
           <th style='text-align:center;'>รูปถ่าย</th>
           <th style='text-align:center;'>รหัสสมาชิก</th>
-          <th style='text-align:center;'>ชื่อ-สกุล</th>
+          <th style='text-align:center;'>ชื่อ-นามสกุล</th>
           <th style='text-align:center;'>วิชาที่ลงทะเบียนเรียน</th>
           <th style='text-align:center;'>รายละเอียด</th>
         </tr>
@@ -69,6 +69,88 @@ class Admin_model extends CI_Model{
                 <a href='".base_url()."main/student_detail?id=".$row->id."'><img src='".base_url()."assets/images/icon/infomation.png' alt='รายละเอียด' style='cursor: pointer; width: 50px; height: 50px;' /></a>
                 <a href='".base_url()."main/delete_student?id=".$row->id."'><img src='".base_url()."assets/images/icon/delete.png' alt='ลบ' style='cursor: pointer; width: 50px; height: 50px;' /></a>
 
+            </td>
+          </tr>
+        </table>
+      </div>
+      ";
+    }
+
+  }
+
+  public function get_student_all() {
+
+    $query = $this->db->query("SELECT * FROM tb_student");
+
+    echo "
+    <div class='table table-responsive'>
+      <table class='table table-bordered text-center' style='border: none !important'>
+        <tr>
+          <th style='text-align:center;'>ลำดับ</th>
+          <th style='text-align:center;'>รูปถ่าย</th>
+          <th style='text-align:center;'>รหัสสมาชิก</th>
+          <th style='text-align:center;'>ชื่อ-นามสกุล</th>
+          <th style='text-align:center;'>วิชาที่ลงทะเบียนเรียน</th>
+          <th style='text-align:center;'>รายละเอียด</th>
+        </tr>
+    ";
+
+    foreach ($query->result() as $row) {
+      echo "
+          <tr>
+            <td style='padding-top:50px;'>".$row->id."</td>
+            <td><img style='width:100px; height:100px;' src='".base_url()."assets/images/student/".$row->image."'</td>
+            <td style='padding-top:50px;'>".$row->id_student."</td>
+            <td style='padding-top:50px;'>".$row->prefix." ".$row->firstname." ".$row->lastname."</td>
+
+            ";
+
+            // read regis class count
+            $query_read = $this->db->query("SELECT count FROM tb_regis_count WHERE id_student='$row->id_student'");
+            foreach ($query_read->result() as $row_read) {
+              echo "<td style='padding-top:50px;'>".$row_read->count."</td>";
+            }
+            // end read
+
+      echo "
+            <td style='padding-top:35px;'>
+                <a href='".base_url()."main/student_detail?id=".$row->id."'><img src='".base_url()."assets/images/icon/infomation.png' alt='รายละเอียด' style='cursor: pointer; width: 50px; height: 50px;' /></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      ";
+    }
+
+  }
+
+  public function get_users() {
+
+    $query = $this->db->query("SELECT * FROM tb_user");
+
+    echo "
+    <div class='table table-responsive'>
+      <table class='table table-bordered text-center' style='border: none !important'>
+        <tr>
+          <th style='text-align:center;'>ลำดับ</th>
+          <th style='text-align:center;'>รูปถ่าย</th>
+          <th style='text-align:center;'>ชื่อผู้ใช้งาน</th>
+          <th style='text-align:center;'>ชื่อ-นามสกุล</th>
+          <th style='text-align:center;'>กลุ่มผู้ใช้งาน</th>
+          <th style='text-align:center;'>รายละเอียด</th>
+        </tr>
+    ";
+
+    foreach ($query->result() as $row) {
+      echo "
+          <tr>
+            <td style='padding-top:50px;'>".$row->id."</td>
+            <td><img style='width:100px; height:100px;' src='".base_url()."assets/images/student/".$row->image."'</td>
+            <td style='padding-top:50px;'>".$row->username."</td>
+            <td style='padding-top:50px;'>".$row->firstname." ".$row->lastname."</td>
+            <td style='padding-top:50px;'>".$row->member_group."</td>
+            <td style='padding-top:35px;'>
+                <a href='".base_url()."main/user_detail?user=".$row->username."'><img src='".base_url()."assets/images/icon/infomation.png' alt='รายละเอียด' style='cursor: pointer; width: 50px; height: 50px;' /></a>
             </td>
           </tr>
         </table>
@@ -523,6 +605,174 @@ class Admin_model extends CI_Model{
        </div>
      </form>
      ";
+  }
+
+  public function db_user_detail() {
+    $user = $this->input->get('user');
+    $sql = "SELECT * FROM tb_user WHERE username='$user'";
+    $query = $this->db->query($sql);
+
+    echo '
+    <form action="'.base_url().'main/db_save_user" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="'.$user.'">
+      <div class="form-group">
+        <div class="table table-responsive">
+          <table class="table borderless text-center" style="border: none !important">
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+    ';
+
+    foreach ($query->result() as $row) {
+      echo '
+            <tr>
+              <td></td>
+              <td><img style="width:100px; height:100px;" src="'.base_url().'assets/images/student/'.$row->image.'"  /></td>
+            </tr>
+            <tr>
+              <td>ชื่อผู้ใช้งาน</td>
+              <td><input type="text" class="form-control" name="username" value="'.$row->username.'" maxlength="25" disabled></td>
+              <input type="hidden" name="username" value="'.$row->username.'">
+            </tr>
+            <tr>
+              <td>ชื่อ</td>
+              <td><input type="text" class="form-control" name="firstname" value="'.$row->firstname.'" maxlength="25"></td>
+            </tr>
+            <tr>
+              <td>นามสกุล</td>
+              <td><input type="text" class="form-control" name="lastname" value="'.$row->lastname.'" maxlength="25"></td>
+            </tr>
+            <tr>
+              <td>อีเมล์</td>
+              <td><input type="text" class="form-control" name="email" value="'.$row->email.'" maxlength="25"></td>
+            </tr>
+            <tr>
+              <td>หมายเลขโทรศัพท์</td>
+              <td><input type="text" class="form-control" name="tel" value="'.$row->tel.'" maxlength="10"></td>
+            </tr>
+            <tr>
+              <td>รูปภาพ</td>
+              <td><input type="file" class="form-control" name="image_student" value=""></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><button type="submit" class="btn btn-success" name="button" style="width:100%">บันทึก</button></td>
+            </tr>
+      ';
+    }
+
+    echo '
+        </table>
+      </div>
+    </form>
+    ';
+  }
+
+  //
+  public function db_user_detail_pwd() {
+
+    echo '
+    <form action="'.base_url().'main/db_student_detail" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="'.$user.'">
+      <div class="form-group">
+        <div class="table table-responsive">
+          <table class="table borderless text-center" style="border: none !important">
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+    ';
+
+    foreach ($query->result() as $row) {
+      echo '
+            <tr>
+              <td></td>
+              <td><img style="width:100px; height:100px;" src="'.base_url().'assets/images/student/'.$row->image.'"  /></td>
+            </tr>
+            <tr>
+              <td>ชื่อผู้ใช้งาน</td>
+              <td><input type="text" class="form-control" name="firstname" value="'.$row->username.'" maxlength="25"></td>
+            </tr>
+            <tr>
+              <td>ชื่อ</td>
+              <td><input type="text" class="form-control" name="firstname" value="'.$row->firstname.'" maxlength="25"></td>
+            </tr>
+            <tr>
+              <td>นามสกุล</td>
+              <td><input type="text" class="form-control" name="lastname" value="'.$row->lastname.'" maxlength="25"></td>
+            </tr>
+            <tr>
+              <td>อีเมล์</td>
+              <td><input type="text" class="form-control" name="lastname" value="'.$row->email.'" maxlength="25"></td>
+            </tr>
+            <tr>
+              <td>หมายเลขโทรศัพท์</td>
+              <td><input type="text" class="form-control" name="tel" value="'.$row->tel.'" maxlength="10"></td>
+            </tr>
+            <tr>
+              <td>รูปภาพ</td>
+              <td><input type="file" class="form-control" name="image_student" value=""></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><button type="submit" class="btn btn-success" name="button" style="width:100%">บันทึก</button></td>
+            </tr>
+      ';
+    }
+
+    echo '
+        </table>
+      </div>
+    </form>
+    ';
+  }
+
+  public function get_login_log() {
+
+    $query = $this->db->query("SELECT * FROM tb_log");
+
+    echo "
+    <div class='table table-responsive'>
+      <table class='table table-bordered text-center' style='border: none !important'>
+        <tr>
+          <th style='text-align:center;'>ลำดับ</th>
+          <th style='text-align:center;'>วันที่</th>
+          <th style='text-align:center;'>IP Address</th>
+          <th style='text-align:center;'>รายละเอียด</th>
+          <th style='text-align:center;'>ผู้ใช้งาน</th>
+          <th style='text-align:center;'>เพิ่มเติม</th>
+        </tr>
+    ";
+
+    foreach ($query->result() as $row) {
+      echo "
+          <tr>
+            <td style='padding-top:25px;'>".$row->id."</td>
+            <td style='padding-top:25px;'>".$row->last_login."</td>
+            <td style='padding-top:25px;'>".$row->ip_address."</td>
+            <td style='padding-top:25px;'>".$row->detail."</td>
+            <td style='padding-top:25px;'>".$row->username."</td>
+            <td>
+                <a href='".base_url()."main/delete_log?id=".$row->id."'><img src='".base_url()."assets/images/icon/delete.png' alt='ลบ' style='cursor: pointer; width: 50px; height: 50px;' /></a>
+            </td>
+          </tr>
+      ";
+    }
+
+    echo "
+        </table>
+      </div>
+    ";
+
   }
 
 } // end model
