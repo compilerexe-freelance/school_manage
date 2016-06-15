@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2016 at 01:54 PM
+-- Generation Time: Jun 15, 2016 at 10:27 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -31,6 +31,16 @@ CREATE TABLE `tb_class` (
   `title_class` varchar(50) NOT NULL,
   `code_class` varchar(10) NOT NULL,
   `detail_class` text NOT NULL,
+  `title_1` varchar(255) NOT NULL,
+  `title_2` varchar(255) NOT NULL,
+  `title_3` varchar(255) NOT NULL,
+  `title_4` varchar(255) NOT NULL,
+  `title_5` varchar(255) NOT NULL,
+  `title_6` varchar(255) NOT NULL,
+  `title_7` varchar(255) NOT NULL,
+  `title_8` varchar(255) NOT NULL,
+  `title_9` varchar(255) NOT NULL,
+  `title_10` varchar(255) NOT NULL,
   `name_teacher` varchar(50) NOT NULL,
   `open_class` date NOT NULL,
   `close_class` date NOT NULL,
@@ -46,8 +56,9 @@ CREATE TABLE `tb_class` (
 -- Dumping data for table `tb_class`
 --
 
-INSERT INTO `tb_class` (`id`, `title_class`, `code_class`, `detail_class`, `name_teacher`, `open_class`, `close_class`, `hour_class`, `day_class`, `time_class`, `price_class`, `state_class`, `count_student`) VALUES
-(1, 'ภาษาไทย', 'THAI001', '...', 'Mr.A', '2016-06-06', '2016-06-30', 10, 'abcdf', '10.00-24.00', 5000, 1, 0);
+INSERT INTO `tb_class` (`id`, `title_class`, `code_class`, `detail_class`, `title_1`, `title_2`, `title_3`, `title_4`, `title_5`, `title_6`, `title_7`, `title_8`, `title_9`, `title_10`, `name_teacher`, `open_class`, `close_class`, `hour_class`, `day_class`, `time_class`, `price_class`, `state_class`, `count_student`) VALUES
+(1, 'ภาษาไทย', 'THAI001', '...', 'ทดสอบ 1', 'ทดสอบ 2', 'ทดสอบ 3', '', '', '', '', '', '', '', 'Mr.A', '2016-06-15', '2016-06-30', 10, 'abcdf', '10.00-24.00', 1500, 1, 0),
+(2, 'อังกฤษ', 'ENG001', '....', 'Test A', 'Test B', '', '', '', '', '', '', '', '', 'Mr.B', '2016-06-16', '2016-06-30', 10, 'abcde', '10.00-24.00', 4000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -59,6 +70,8 @@ CREATE TABLE `tb_history_class` (
   `id` int(11) NOT NULL,
   `id_student` varchar(12) NOT NULL,
   `title_class` varchar(50) NOT NULL,
+  `subject_title` varchar(255) NOT NULL,
+  `score` int(3) NOT NULL,
   `hour_used` int(11) NOT NULL,
   `last_update` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -67,10 +80,10 @@ CREATE TABLE `tb_history_class` (
 -- Dumping data for table `tb_history_class`
 --
 
-INSERT INTO `tb_history_class` (`id`, `id_student`, `title_class`, `hour_used`, `last_update`) VALUES
-(1, 'ST2016000001', 'ภาษาไทย', 1, '2016-06-06 14:45:22'),
-(2, 'ST2016000001', 'ภาษาไทย', 1, '2016-06-06 14:46:17'),
-(3, 'ST2016000001', 'ภาษาไทย', 1, '2016-06-06 14:47:29');
+INSERT INTO `tb_history_class` (`id`, `id_student`, `title_class`, `subject_title`, `score`, `hour_used`, `last_update`) VALUES
+(1, 'ST2016000001', 'ภาษาไทย', 'ทดสอบ 2', 20, 2, '2016-06-15 22:15:38'),
+(2, 'ST2016000001', 'อังกฤษ', 'Test B', 50, 5, '2016-06-16 02:54:23'),
+(3, 'ST2016000001', 'อังกฤษ', 'Test A', 20, 2, '2016-06-16 02:54:39');
 
 -- --------------------------------------------------------
 
@@ -95,7 +108,8 @@ CREATE TABLE `tb_history_payment` (
 --
 
 INSERT INTO `tb_history_payment` (`id`, `prefix`, `firstname`, `lastname`, `code_class`, `title_class`, `price_class`, `last_update`, `confirm_by`) VALUES
-(1, 'นาย', 'Computer', 'mac', 'THAI001', 'ภาษาไทย', 5000, '2016-06-06 20:48:18', 'admin');
+(1, 'นาย', 'Computer', 'mac', 'THAI001', 'ภาษาไทย', 1500, '2016-06-15 21:47:26', 'admin'),
+(2, 'นาย', 'Computer', 'mac', 'ENG001', 'อังกฤษ', 4000, '2016-06-16 01:51:07', 'admin');
 
 -- --------------------------------------------------------
 
@@ -131,7 +145,34 @@ INSERT INTO `tb_log` (`id`, `username`, `ip_address`, `detail`, `last_update`, `
 (12, 'admin', '::1', 'ออกจากระบบ', '2016-06-08', '2016-06-08 18:17:53'),
 (13, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 18:18:00'),
 (14, 'admin', '::1', 'ออกจากระบบ', '2016-06-08', '2016-06-08 18:48:22'),
-(15, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 18:48:28');
+(15, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 18:48:28'),
+(16, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:13:06'),
+(17, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:13:33'),
+(18, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:18:02'),
+(19, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:19:02'),
+(20, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:21:51'),
+(21, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:22:17'),
+(22, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:22:47'),
+(23, 'admin', '::1', 'ออกจากระบบ', '2016-06-08', '2016-06-08 23:24:29'),
+(24, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-08', '2016-06-08 23:24:32'),
+(25, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 19:28:47'),
+(26, 'admin', '::1', 'ออกจากระบบ', '2016-06-09', '2016-06-09 20:09:10'),
+(27, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:09:14'),
+(28, 'admin', '::1', 'ออกจากระบบ', '2016-06-09', '2016-06-09 20:10:24'),
+(29, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:10:27'),
+(30, 'admin', '::1', 'ออกจากระบบ', '2016-06-09', '2016-06-09 20:15:02'),
+(31, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:15:05'),
+(32, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:15:11'),
+(33, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:16:06'),
+(34, 'admin', '::1', 'ออกจากระบบ', '2016-06-09', '2016-06-09 20:16:10'),
+(35, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:16:13'),
+(36, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:17:07'),
+(37, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:17:33'),
+(38, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:18:02'),
+(39, 'test', '::1', 'เข้าสู่ระบบ', '2016-06-09', '2016-06-09 20:18:11'),
+(40, 'user', '::1', 'ออกจากระบบ', '2016-06-09', '2016-06-09 20:36:12'),
+(41, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-15', '2016-06-15 21:08:26'),
+(42, 'admin', '::1', 'เข้าสู่ระบบ', '2016-06-16', '2016-06-16 01:11:00');
 
 -- --------------------------------------------------------
 
@@ -159,7 +200,8 @@ CREATE TABLE `tb_regis_class` (
 --
 
 INSERT INTO `tb_regis_class` (`id`, `prefix`, `firstname`, `lastname`, `code_class`, `title_class`, `price_class`, `hour_class`, `hour_total`, `payment`, `last_update`, `save_by`) VALUES
-(1, 'นาย', 'ปวเรศ', 'บวรภัทรวดี', 'THAI001', 'ภาษาไทย', 5000, 10, 3, 1, '2016-06-06 14:47:29', 'admin');
+(1, 'นาย', 'Computer', 'mac', 'THAI001', 'ภาษาไทย', 1500, 10, 2, 1, '2016-06-15 22:15:38', 'admin'),
+(2, 'นาย', 'Computer', 'mac', 'ENG001', 'อังกฤษ', 4000, 10, 7, 1, '2016-06-16 02:54:39', 'admin');
 
 -- --------------------------------------------------------
 
@@ -178,7 +220,8 @@ CREATE TABLE `tb_regis_count` (
 --
 
 INSERT INTO `tb_regis_count` (`id`, `id_student`, `count`) VALUES
-(1, 'ST2016000001', 1);
+(1, 'ST2016000001', 2),
+(5, 'ST2016000002', 0);
 
 -- --------------------------------------------------------
 
@@ -207,7 +250,8 @@ CREATE TABLE `tb_student` (
 --
 
 INSERT INTO `tb_student` (`id`, `id_student`, `prefix`, `firstname`, `lastname`, `address`, `sub_district`, `district`, `province`, `tel`, `name_parent`, `tel_parent`, `image`) VALUES
-(1, 'ST2016000001', 'นาย', 'Computer', 'mac', '35', '...', '....', 'กทม', '', '-', '-', '1464548557_malecostume.png');
+(1, 'ST2016000001', 'นาย', 'Computer', 'mac', '35', '...', '....', 'กทม', '0901111111', '-', '-', '1464548557_malecostume.png'),
+(5, 'ST2016000002', 'เด็กชาย', 'system', 'os', '..', '..', '..', '..', '..', '..', '..', 'guest.png');
 
 -- --------------------------------------------------------
 
@@ -297,7 +341,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_class`
 --
 ALTER TABLE `tb_class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tb_history_class`
 --
@@ -307,27 +351,27 @@ ALTER TABLE `tb_history_class`
 -- AUTO_INCREMENT for table `tb_history_payment`
 --
 ALTER TABLE `tb_history_payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tb_log`
 --
 ALTER TABLE `tb_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `tb_regis_class`
 --
 ALTER TABLE `tb_regis_class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tb_regis_count`
 --
 ALTER TABLE `tb_regis_count`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tb_student`
 --
 ALTER TABLE `tb_student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tb_user`
 --

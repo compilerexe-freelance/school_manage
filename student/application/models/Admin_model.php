@@ -93,12 +93,16 @@ class Admin_model extends CI_Model{
           <th style='text-align:center;'>รูปถ่าย</th>
           <th style='text-align:center;'>รหัสสมาชิก</th>
           <th style='text-align:center;'>ชื่อ-นามสกุล</th>
-          <th style='text-align:center;'>วิชาที่ลงทะเบียนเรียน</th>
+          <th style='text-align:center;'>จำนวนวิชาที่ลงทะเบียนเรียน</th>
+          <th style='text-align:center;'>ชื่อวิชาที่ลงทะเบียนเรียน</th>
+          <th style='text-align:center;'>หัวข้อที่เรียนไปแล้ว</th>
+          <th style='text-align:center;'>จำนวนชั่วโมงที่เหลือ</th>
           <th style='text-align:center;'>รายละเอียด</th>
         </tr>
     ";
 
     foreach ($query->result() as $row) {
+      $id_student = $row->id_student;
       echo "
           <tr>
             <td style='padding-top:50px;'>".$row->id."</td>
@@ -112,6 +116,40 @@ class Admin_model extends CI_Model{
             $query_read = $this->db->query("SELECT count FROM tb_regis_count WHERE id_student='$row->id_student'");
             foreach ($query_read->result() as $row_read) {
               echo "<td style='padding-top:50px;'>".$row_read->count."</td>";
+            }
+            // end read
+
+            // read title_class
+            $query_read = $this->db->query("SELECT id_student,title_class FROM tb_history_class");
+            foreach ($query_read->result() as $row_read) {
+              if ($row_read->id_student == $id_student) {
+                echo "<td style='padding-top:50px;'>".$row_read->title_class."</td>";
+              } else {
+                echo "<td></td>";
+              }
+            }
+            // end read
+
+            // read subject_title
+            $query_read = $this->db->query("SELECT id_student,title_class,subject_title FROM tb_history_class");
+            foreach ($query_read->result() as $row_read) {
+              if ($row_read->id_student == $id_student) {
+                echo "<td style='padding-top:50px;'>".$row_read->subject_title."</td>";
+              } else {
+                echo "<td></td>";
+              }
+            }
+            // end read
+
+            // read total_hour
+            $query_read = $this->db->query("SELECT * FROM tb_regis_class");
+            foreach ($query_read->result() as $row_read) {
+              if ($row->firstname == $row_read->firstname && $row->lastname == $row_read->lastname) {
+                $total_h = $row_read->hour_class - $row_read->hour_total;
+                echo "<td style='padding-top:50px;'>".$total_h."</td>";
+              } else {
+                echo "<td></td>";
+              }
             }
             // end read
 
@@ -279,6 +317,48 @@ class Admin_model extends CI_Model{
         <td>รายละเอียด</td>
         <td><textarea class="form-control" name="detail_class" rows="8" cols="40" style="resize:none;">'.$row->detail_class.'</textarea></td>
       </tr>
+
+      <tr>
+        <td>หัวข้อที่ 1</td>
+        <td><input type="text" class="form-control" name="title_1" value="'.$row->title_1.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 2</td>
+        <td><input type="text" class="form-control" name="title_2" value="'.$row->title_2.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 3</td>
+        <td><input type="text" class="form-control" name="title_3" value="'.$row->title_3.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 4</td>
+        <td><input type="text" class="form-control" name="title_4" value="'.$row->title_4.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 5</td>
+        <td><input type="text" class="form-control" name="title_5" value="'.$row->title_5.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 6</td>
+        <td><input type="text" class="form-control" name="title_6" value="'.$row->title_6.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 7</td>
+        <td><input type="text" class="form-control" name="title_7" value="'.$row->title_7.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 8</td>
+        <td><input type="text" class="form-control" name="title_8" value="'.$row->title_8.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 9</td>
+        <td><input type="text" class="form-control" name="title_9" value="'.$row->title_9.'" maxlength="255"></td>
+      </tr>
+      <tr>
+        <td>หัวข้อที่ 10</td>
+        <td><input type="text" class="form-control" name="title_10" value="'.$row->title_10.'" maxlength="255"></td>
+      </tr>
+
       <tr>
         <td>อาจารย์ผู้สอน</td>
         <td><input type="text" class="form-control" name="name_teacher" value="'.$row->name_teacher.'" maxlength="50"></td>

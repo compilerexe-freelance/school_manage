@@ -43,6 +43,46 @@
                   <td><textarea class="form-control" name="detail_class" rows="8" cols="40" style="resize:none;"></textarea></td>
                 </tr>
                 <tr>
+                  <td>หัวข้อที่ 1</td>
+                  <td><input type="text" class="form-control" name="title_1" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 2</td>
+                  <td><input type="text" class="form-control" name="title_2" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 3</td>
+                  <td><input type="text" class="form-control" name="title_3" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 4</td>
+                  <td><input type="text" class="form-control" name="title_4" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 5</td>
+                  <td><input type="text" class="form-control" name="title_5" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 6</td>
+                  <td><input type="text" class="form-control" name="title_6" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 7</td>
+                  <td><input type="text" class="form-control" name="title_7" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 8</td>
+                  <td><input type="text" class="form-control" name="title_8" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 9</td>
+                  <td><input type="text" class="form-control" name="title_9" value="" maxlength="255"></td>
+                </tr>
+                <tr>
+                  <td>หัวข้อที่ 10</td>
+                  <td><input type="text" class="form-control" name="title_10" value="" maxlength="255"></td>
+                </tr>
+                <tr>
                   <td>อาจารย์ผู้สอน</td>
                   <td><input type="text" class="form-control" name="name_teacher" value="" maxlength="50"></td>
                 </tr>

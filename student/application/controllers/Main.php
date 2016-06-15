@@ -99,6 +99,18 @@ class Main extends CI_Controller {
 		$get_title 				= $this->input->post('title_class');
 		$get_code 				= $this->input->post('code_class');
 		$get_detail 			= $this->input->post('detail_class');
+
+		$get_title_1 			= $this->input->post('title_1');
+		$get_title_2 			= $this->input->post('title_2');
+		$get_title_3 			= $this->input->post('title_3');
+		$get_title_4 			= $this->input->post('title_4');
+		$get_title_5 			= $this->input->post('title_5');
+		$get_title_6 			= $this->input->post('title_6');
+		$get_title_7 			= $this->input->post('title_7');
+		$get_title_8 			= $this->input->post('title_8');
+		$get_title_9 			= $this->input->post('title_9');
+		$get_title_10 		= $this->input->post('title_10');
+
 		$get_nameteacher 	= $this->input->post('name_teacher');
 		$get_open_class 	= $this->input->post('open_class');
 		$get_close_class 	= $this->input->post('close_class');
@@ -118,6 +130,18 @@ class Main extends CI_Controller {
 		$safe_title 			= $this->db->escape($get_title);
 		$safe_code 				= $this->db->escape($get_code);
 		$safe_detail 			= $this->db->escape($get_detail);
+
+		$safe_title_1 		= $this->db->escape($get_title_1);
+		$safe_title_2 		= $this->db->escape($get_title_2);
+		$safe_title_3 		= $this->db->escape($get_title_3);
+		$safe_title_4 		= $this->db->escape($get_title_4);
+		$safe_title_5 		= $this->db->escape($get_title_5);
+		$safe_title_6 		= $this->db->escape($get_title_6);
+		$safe_title_7 		= $this->db->escape($get_title_7);
+		$safe_title_8 		= $this->db->escape($get_title_8);
+		$safe_title_9 		= $this->db->escape($get_title_9);
+		$safe_title_10 		= $this->db->escape($get_title_10);
+
 		$safe_nameteacher = $this->db->escape($get_nameteacher);
 		$safe_open_class 	= $this->db->escape($get_open_class);
 		$safe_close_class = $this->db->escape($get_close_class);
@@ -136,6 +160,18 @@ class Main extends CI_Controller {
 			title_class 	= $safe_title,
 			code_class 		= $safe_code,
 			detail_class 	= $safe_detail,
+
+			title_1 			= $safe_title_1,
+			title_2 			= $safe_title_2,
+			title_3 			= $safe_title_3,
+			title_4 			= $safe_title_4,
+			title_5 			= $safe_title_5,
+			title_6 			= $safe_title_6,
+			title_7 			= $safe_title_7,
+			title_8 			= $safe_title_8,
+			title_9 			= $safe_title_9,
+			title_10 			= $safe_title_10,
+
 			name_teacher 	= $safe_nameteacher,
 			open_class 		= $safe_open_class,
 			close_class 	= $safe_close_class,
@@ -161,6 +197,18 @@ class Main extends CI_Controller {
 		$get_title 				= $this->input->post('title_class');
 		$get_code 				= $this->input->post('code_class');
 		$get_detail 			= $this->input->post('detail_class');
+
+		$get_title_1 			= $this->input->post('title_1');
+		$get_title_2 			= $this->input->post('title_2');
+		$get_title_3 			= $this->input->post('title_3');
+		$get_title_4 			= $this->input->post('title_4');
+		$get_title_5 			= $this->input->post('title_5');
+		$get_title_6 			= $this->input->post('title_6');
+		$get_title_7 			= $this->input->post('title_7');
+		$get_title_8 			= $this->input->post('title_8');
+		$get_title_9 			= $this->input->post('title_9');
+		$get_title_10 		= $this->input->post('title_10');
+
 		$get_nameteacher 	= $this->input->post('name_teacher');
 		$get_open_class 	= $this->input->post('open_class');
 		$get_close_class 	= $this->input->post('close_class');
@@ -180,6 +228,18 @@ class Main extends CI_Controller {
 		$safe_title 			= $this->db->escape($get_title);
 		$safe_code 				= $this->db->escape($get_code);
 		$safe_detail 			= $this->db->escape($get_detail);
+
+		$safe_title_1 		= $this->db->escape($get_title_1);
+		$safe_title_2 		= $this->db->escape($get_title_2);
+		$safe_title_3 		= $this->db->escape($get_title_3);
+		$safe_title_4 		= $this->db->escape($get_title_4);
+		$safe_title_5 		= $this->db->escape($get_title_5);
+		$safe_title_6 		= $this->db->escape($get_title_6);
+		$safe_title_7 		= $this->db->escape($get_title_7);
+		$safe_title_8 		= $this->db->escape($get_title_8);
+		$safe_title_9 		= $this->db->escape($get_title_9);
+		$safe_title_10 		= $this->db->escape($get_title_10);
+
 		$safe_nameteacher = $this->db->escape($get_nameteacher);
 		$safe_open_class 	= $this->db->escape($get_open_class);
 		$safe_close_class = $this->db->escape($get_close_class);
@@ -211,13 +271,50 @@ class Main extends CI_Controller {
 			$get_day_class_f.$get_day_class_g;
 
 			$sql = "INSERT INTO tb_class (
-				title_class,code_class,detail_class,name_teacher,
-				open_class,close_class,hour_class,day_class,time_class,
-				price_class,state_class
+				title_class,
+				code_class,
+				detail_class,
+				title_1,
+				title_2,
+				title_3,
+				title_4,
+				title_5,
+				title_6,
+				title_7,
+				title_8,
+				title_9,
+				title_10,
+				name_teacher,
+				open_class,
+				close_class,
+				hour_class,
+				day_class,
+				time_class,
+				price_class,
+				state_class
 			) VALUES (
-				$safe_title,$safe_code,$safe_detail,$safe_nameteacher,
-				$safe_open_class,$safe_close_class,$safe_hour_class,
-				'$day_class',$safe_time_class,$safe_price_class,
+				$safe_title,
+				$safe_code,
+				$safe_detail,
+
+				$safe_title_1,
+				$safe_title_2,
+				$safe_title_3,
+				$safe_title_4,
+				$safe_title_5,
+				$safe_title_6,
+				$safe_title_7,
+				$safe_title_8,
+				$safe_title_9,
+				$safe_title_10,
+
+				$safe_nameteacher,
+				$safe_open_class,
+				$safe_close_class,
+				$safe_hour_class,
+				'$day_class',
+				$safe_time_class,
+				$safe_price_class,
 				$safe_state_class
 			);";
 
@@ -534,6 +631,7 @@ class Main extends CI_Controller {
 		$id = $this->input->get('id');
 		// echo $id;
 		$this->db->query("DELETE FROM tb_student WHERE id='$id'");
+		$this->db->query("DELETE FROM tb_regis_count WHERE id='$id'");
 		header('location: '.base_url().'index.php/main/info_student');
 	}
 
@@ -542,12 +640,15 @@ class Main extends CI_Controller {
 	}
 
 	public function db_history_class() {
-		$title_class = $this->input->get('title_class');
-		$id_student = $this->input->get('id_student');
-		$select_hour = $this->input->get('select_hour');
+		$title_class 		= $this->input->get('title_class');
+		$subject_title 	= $this->input->get('select_title');
+		$id_student 		= $this->input->get('id_student');
+		$select_hour 		= $this->input->get('select_hour');
+		$score 					= $this->input->get('score_class');
+
 		$firstname = ""; $lastname = ""; $hour_total = 0;
 
-		$this->db->query("INSERT INTO tb_history_class (id_student,title_class,hour_used,last_update) VALUES ('$id_student','$title_class',$select_hour,NOW())");
+		$this->db->query("INSERT INTO tb_history_class (id_student,title_class,subject_title,score,hour_used,last_update) VALUES ('$id_student','$title_class','$subject_title',$score,$select_hour,NOW())");
 
 		$query = $this->db->query("SELECT hour_total FROM tb_regis_class");
 		foreach ($query->result() as $row) {
