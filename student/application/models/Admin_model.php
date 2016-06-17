@@ -83,6 +83,8 @@ class Admin_model extends CI_Model{
 
   public function get_student_all() {
 
+    $buff_title_class = 0;
+
     $query = $this->db->query("SELECT * FROM tb_student");
 
     echo "
@@ -120,37 +122,37 @@ class Admin_model extends CI_Model{
             // end read
 
             // read title_class
-            $query_read = $this->db->query("SELECT id_student,title_class FROM tb_history_class");
+            $query_read = $this->db->query("SELECT DISTINCT(title_class),id_student,title_class FROM tb_history_class WHERE id_student='$row->id_student'");
+            echo "<td style='padding-top:50px;'>";
             foreach ($query_read->result() as $row_read) {
               if ($row_read->id_student == $id_student) {
-                echo "<td style='padding-top:50px;'>".$row_read->title_class."</td>";
-              } else {
-                echo "<td></td>";
+                echo $row_read->title_class.",";
               }
             }
+            echo "</td>";
             // end read
 
             // read subject_title
-            $query_read = $this->db->query("SELECT id_student,title_class,subject_title FROM tb_history_class");
+            $query_read = $this->db->query("SELECT id_student,title_class,subject_title FROM tb_history_class WHERE id_student='$row->id_student'");
+            echo "<td style='padding-top:50px;'>";
             foreach ($query_read->result() as $row_read) {
               if ($row_read->id_student == $id_student) {
-                echo "<td style='padding-top:50px;'>".$row_read->subject_title."</td>";
-              } else {
-                echo "<td></td>";
+                echo $row_read->subject_title.",";
               }
             }
+            echo "</td>";
             // end read
 
             // read total_hour
             $query_read = $this->db->query("SELECT * FROM tb_regis_class");
+            echo "<td style='padding-top:50px;'>";
             foreach ($query_read->result() as $row_read) {
               if ($row->firstname == $row_read->firstname && $row->lastname == $row_read->lastname) {
                 $total_h = $row_read->hour_class - $row_read->hour_total;
-                echo "<td style='padding-top:50px;'>".$total_h."</td>";
-              } else {
-                echo "<td></td>";
+                echo $total_h.",";
               }
             }
+            echo "</td>";
             // end read
 
       echo "
