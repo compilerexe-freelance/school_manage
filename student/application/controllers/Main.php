@@ -459,61 +459,90 @@ class Main extends CI_Controller {
 
 	public function db_regis_detail() {
 		$id = $this->session->state_id;
+
+		// Read firstname, lastname
 		$prefix = ""; $firstname = ""; $lastname = ""; $id_student = ""; $count_class = 0;
-		$sql = "SELECT prefix,firstname,lastname FROM tb_student WHERE id=$id";
+		$sql = "SELECT id_student,prefix,firstname,lastname FROM tb_student WHERE id=$id";
 		$query = $this->db->query($sql);
 		foreach ($query->result() as $row) {
 			$prefix = $row->prefix;
 			$firstname = $row->firstname;
 			$lastname = $row->lastname;
+			$id_student = $row->id_student;
 		}
 
-		// get form
+		// Read form input
 		$code_class = $this->input->post('code_class');
 		$title_class = $this->input->post('title_class');
 		$hour_class = $this->input->post('hour_class');
 		$price_class = $this->input->post('price_class');
 
-		// echo $code_class.$title_class.$price_class;
-
-		$save_by = $this->session->state_login;
-
-		$sql = "INSERT INTO tb_regis_class (
-			prefix,firstname,lastname,code_class,title_class,price_class,hour_class,
-			hour_total,payment,last_update,save_by
-		) VALUES (
-			'$prefix','$firstname','$lastname','$code_class','$title_class','$price_class',
-			$hour_class,0,0,NOW(),'$save_by'
-		)";
-
-		$this->db->query($sql);
-
-		// update counting class
-		$sql = "SELECT id_student FROM tb_student WHERE firstname='$firstname' AND lastname='$lastname'";
+		// Check regis class don't double
+		$sql = "SELECT id FROM tb_regis_class WHERE firstname='$firstname' AND lastname='$lastname' AND title_class='$title_class'";
 		$query = $this->db->query($sql);
-		foreach ($query->result() as $row) {
-			$id_student = $row->id_student;
+		if ($query->num_rows() >= 1) {
+			echo "
+				<script type='text/javascript'>
+					alert('ผู้ใช้งานได้ลงทะเบียนเรียนไปแล้ว');
+					setInterval(function() {
+						window.location = '".base_url()."index.php/main/regis_class?id=".$this->session->state_id."';
+					}, 1000);
+				</script>
+			";
+		} else {
+
+			$save_by = $this->session->state_login;
+
+			$sql = "INSERT INTO tb_regis_class (
+				prefix,firstname,lastname,code_class,title_class,price_class,hour_class,
+				hour_total,payment,last_update,save_by
+			) VALUES (
+				'$prefix','$firstname','$lastname','$code_class','$title_class','$price_class',
+				$hour_class,0,0,NOW(),'$save_by'
+			)";
+
+			$this->db->query($sql);
+
+			// Update counting to class
+			$sql = "SELECT id_student FROM tb_student WHERE firstname='$firstname' AND lastname='$lastname'";
+			$query = $this->db->query($sql);
+			foreach ($query->result() as $row) {
+				$id_student = $row->id_student;
+			}
+
+			$query = $this->db->query("SELECT count FROM tb_regis_count WHERE id_student='$id_student'");
+			foreach ($query->result() as $row) {
+				$count_class = $row->count;
+			}
+
+			$count_class++;
+			$this->db->query("UPDATE tb_regis_count SET count='$count_class' WHERE id_student='$id_student'");
+
+			// Insert to graph
+
+			$sql = "SELECT year,month FROM tb_graph_regis WHERE id_student='$id_student'";
+			$query = $this->db->query($sql);
+			$year = ""; $current_year = date('Y');
+			$month = ""; $current_month = date('m');
+			foreach ($query->result() as $row) {
+				$year = $row->year;
+			  $month = $row->month;
+			}
+
+			if ($year != $current_year && $month != $current_month) {
+				$sql = "INSERT INTO tb_graph_regis (prefix,id_student,year,month) VALUES('$prefix','$id_student','$current_year','$current_month')";
+				$this->db->query($sql);
+			}
+
+			echo "
+				<script type='text/javascript'>
+					alert('ลงทะเบียนเรียน สำเร็จ!');
+					setInterval(function() {
+						window.location = '".base_url()."index.php/main/regis_class?id=".$this->session->state_id."';
+					}, 1000);
+				</script>
+			";
 		}
-
-		$query = $this->db->query("SELECT count FROM tb_regis_count WHERE id_student='$id_student'");
-		foreach ($query->result() as $row) {
-			$count_class = $row->count;
-		}
-
-		$count_class++;
-		$this->db->query("UPDATE tb_regis_count SET count='$count_class' WHERE id_student='$id_student'");
-
-		echo "
-			<script type='text/javascript'>
-				alert('ลงทะเบียนเรียน สำเร็จ!');
-				setInterval(function() {
-					window.location = '".base_url()."index.php/main/regis_class?id=".$this->session->state_id."';
-				}, 1000);
-			</script>
-		";
-
-		// header('location: '.base_url().'main/regis_class?id='.$this->session->state_id);
-
 	}
 
 	public function member_print() {
@@ -853,6 +882,10 @@ class Main extends CI_Controller {
 
 		}
 
+	}
+
+	public function graph_student() {
+		$this->load->view('graph_student');
 	}
 
 } // end controller

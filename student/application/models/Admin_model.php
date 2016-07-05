@@ -55,8 +55,12 @@ class Admin_model extends CI_Model{
 
             // read regis class count
             $query_read = $this->db->query("SELECT count FROM tb_regis_count WHERE id_student='$row->id_student'");
-            foreach ($query_read->result() as $row_read) {
-              echo "<td style='padding-top:50px;'>".$row_read->count."</td>";
+            if ($query_read->num_rows() >= 1) {
+              foreach ($query_read->result() as $row_read) {
+                echo "<td style='padding-top:50px;'>".$row_read->count."</td>";
+              }
+            } else {
+              echo "<td></td>";
             }
             // end read
 

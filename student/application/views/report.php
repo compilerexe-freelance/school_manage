@@ -19,7 +19,11 @@
         </div>
         <div class="panel-body">
           <div class="col-md-3 form-group" style="//border: 1px solid #abc; border-radius: 5px;">
-            <a href="<?php echo base_url(); ?>index.php/main/student_all"><img src="<?php echo base_url(); ?>assets/images/icon/student.png" alt="" class="img-responsive" style="cursor: pointer;" /></a>
+
+            <!-- <a href="<?php echo base_url(); ?>index.php/main/student_all"><img src="<?php echo base_url(); ?>assets/images/icon/student.png" alt="" class="img-responsive" style="cursor: pointer;" /></a> -->
+
+            <a href="<?php echo base_url(); ?>index.php/main/graph_student"><img src="<?php echo base_url(); ?>assets/images/icon/student.png" alt="" class="img-responsive" style="cursor: pointer;" /></a>
+
             <span>ประวัตินักเรียน</span>
           </div>
           <div class="col-md-3 form-group" style="//border: 1px solid #abc; border-radius: 5px;">
