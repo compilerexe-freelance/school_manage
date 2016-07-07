@@ -60,18 +60,69 @@
                     $sql_title_class = "SELECT * FROM tb_class WHERE title_class='$get_title_class'";
                     $query_title_class = $this->db->query($sql_title_class);
                     foreach ($query_title_class->result() as $row_title) {
-                      echo "
-                        <option>".$row_title->title_1."</option>
-                        <option>".$row_title->title_2."</option>
-                        <option>".$row_title->title_3."</option>
-                        <option>".$row_title->title_4."</option>
-                        <option>".$row_title->title_5."</option>
-                        <option>".$row_title->title_6."</option>
-                        <option>".$row_title->title_7."</option>
-                        <option>".$row_title->title_8."</option>
-                        <option>".$row_title->title_9."</option>
-                        <option>".$row_title->title_10."</option>
-                      ";
+                      if ($row_title->title_1 != "") {
+                        echo "<option>".$row_title->title_1."</option>";
+                      }
+                      if ($row_title->title_2 != "") {
+                        echo "<option>".$row_title->title_2."</option>";
+                      }
+                      if ($row_title->title_3 != "") {
+                        echo "<option>".$row_title->title_3."</option>";
+                      }
+                      if ($row_title->title_4 != "") {
+                        echo "<option>".$row_title->title_4."</option>";
+                      }
+                      if ($row_title->title_5 != "") {
+                        echo "<option>".$row_title->title_5."</option>";
+                      }
+                      if ($row_title->title_6 != "") {
+                        echo "<option>".$row_title->title_6."</option>";
+                      }
+                      if ($row_title->title_7 != "") {
+                        echo "<option>".$row_title->title_7."</option>";
+                      }
+                      if ($row_title->title_8 != "") {
+                        echo "<option>".$row_title->title_8."</option>";
+                      }
+                      if ($row_title->title_9 != "") {
+                        echo "<option>".$row_title->title_9."</option>";
+                      }
+                      if ($row_title->title_10 != "") {
+                        echo "<option>".$row_title->title_10."</option>";
+                      }
+                      if ($row_title->title_11 != "") {
+                        echo "<option>".$row_title->title_11."</option>";
+                      }
+                      if ($row_title->title_12 != "") {
+                        echo "<option>".$row_title->title_12."</option>";
+                      }
+                      if ($row_title->title_13 != "") {
+                        echo "<option>".$row_title->title_13."</option>";
+                      }
+                      if ($row_title->title_14 != "") {
+                        echo "<option>".$row_title->title_14."</option>";
+                      }
+                      if ($row_title->title_15 != "") {
+                        echo "<option>".$row_title->title_15."</option>";
+                      }
+                      if ($row_title->title_16 != "") {
+                        echo "<option>".$row_title->title_16."</option>";
+                      }
+                      if ($row_title->title_16 != "") {
+                        echo "<option>".$row_title->title_16."</option>";
+                      }
+                      if ($row_title->title_17 != "") {
+                        echo "<option>".$row_title->title_17."</option>";
+                      }
+                      if ($row_title->title_18 != "") {
+                        echo "<option>".$row_title->title_18."</option>";
+                      }
+                      if ($row_title->title_19 != "") {
+                        echo "<option>".$row_title->title_19."</option>";
+                      }
+                      if ($row_title->title_20 != "") {
+                        echo "<option>".$row_title->title_20."</option>";
+                      }
                     }
 
                     echo "

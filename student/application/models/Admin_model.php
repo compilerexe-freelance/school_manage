@@ -324,45 +324,86 @@ class Admin_model extends CI_Model{
         <td><textarea class="form-control" name="detail_class" rows="8" cols="40" style="resize:none;">'.$row->detail_class.'</textarea></td>
       </tr>
 
-      <tr>
+
+      <tr id="title_1">
         <td>หัวข้อที่ 1</td>
-        <td><input type="text" class="form-control" name="title_1" value="'.$row->title_1.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_1" id="topic1" value="'.$row->title_1.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_2">
         <td>หัวข้อที่ 2</td>
-        <td><input type="text" class="form-control" name="title_2" value="'.$row->title_2.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_2" id="topic2" value="'.$row->title_2.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_3">
         <td>หัวข้อที่ 3</td>
-        <td><input type="text" class="form-control" name="title_3" value="'.$row->title_3.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_3" id="topic3" value="'.$row->title_3.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_4">
         <td>หัวข้อที่ 4</td>
-        <td><input type="text" class="form-control" name="title_4" value="'.$row->title_4.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_4" id="topic4" value="'.$row->title_4.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_5">
         <td>หัวข้อที่ 5</td>
-        <td><input type="text" class="form-control" name="title_5" value="'.$row->title_5.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_5" id="topic5" value="'.$row->title_5.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_6">
         <td>หัวข้อที่ 6</td>
-        <td><input type="text" class="form-control" name="title_6" value="'.$row->title_6.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_6" id="topic6" value="'.$row->title_6.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_7">
         <td>หัวข้อที่ 7</td>
-        <td><input type="text" class="form-control" name="title_7" value="'.$row->title_7.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_7" id="topic7" value="'.$row->title_7.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_8">
         <td>หัวข้อที่ 8</td>
-        <td><input type="text" class="form-control" name="title_8" value="'.$row->title_8.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_8" id="topic8" value="'.$row->title_8.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_9">
         <td>หัวข้อที่ 9</td>
-        <td><input type="text" class="form-control" name="title_9" value="'.$row->title_9.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_9" id="topic9" value="'.$row->title_9.'" maxlength="255"></td>
       </tr>
-      <tr>
+      <tr id="title_10">
         <td>หัวข้อที่ 10</td>
-        <td><input type="text" class="form-control" name="title_10" value="'.$row->title_10.'" maxlength="255"></td>
+        <td><input type="text" class="form-control" name="title_10" id="topic10" value="'.$row->title_10.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_11">
+        <td>หัวข้อที่ 11</td>
+        <td><input type="text" class="form-control" name="title_11" id="topic11" value="'.$row->title_11.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_12">
+        <td>หัวข้อที่ 12</td>
+        <td><input type="text" class="form-control" name="title_12" id="topic12" value="'.$row->title_12.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_13">
+        <td>หัวข้อที่ 13</td>
+        <td><input type="text" class="form-control" name="title_13" id="topic13" value="'.$row->title_13.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_14">
+        <td>หัวข้อที่ 14</td>
+        <td><input type="text" class="form-control" name="title_14" id="topic14" value="'.$row->title_14.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_15">
+        <td>หัวข้อที่ 15</td>
+        <td><input type="text" class="form-control" name="title_15" id="topic15" value="'.$row->title_15.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_16">
+        <td>หัวข้อที่ 16</td>
+        <td><input type="text" class="form-control" name="title_16" id="topic16" value="'.$row->title_16.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_17">
+        <td>หัวข้อที่ 17</td>
+        <td><input type="text" class="form-control" name="title_17" id="topic17" value="'.$row->title_17.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_18">
+        <td>หัวข้อที่ 18</td>
+        <td><input type="text" class="form-control" name="title_18" id="topic18" value="'.$row->title_18.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_19">
+        <td>หัวข้อที่ 19</td>
+        <td><input type="text" class="form-control" name="title_19" id="topic19" value="'.$row->title_19.'" maxlength="255"></td>
+      </tr>
+      <tr id="title_20">
+        <td>หัวข้อที่ 20</td>
+        <td><input type="text" class="form-control" name="title_20" id="topic20" value="'.$row->title_20.'" maxlength="255"></td>
       </tr>
 
       <tr>
@@ -495,6 +536,7 @@ class Admin_model extends CI_Model{
       </div>
     </form>
     ';
+
   }
 
   public function get_info_regis() {
